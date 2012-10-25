@@ -27,5 +27,11 @@ public class ConcurrentThreads implements EventBarrier
 		return 0;
 	}
 	
+	@Override
+	public void hold() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 }
