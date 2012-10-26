@@ -5,15 +5,18 @@ public abstract class AbstractEventBarrier {
  	 * threads (minstrels in the analogy) and one "controlling" 
  	 * (gatekeeper) thread.
  	 */
-	private int _numWorkers;
+	protected int _numWorkers;
+	protected boolean signal; 
 
 	/* At minimum, the constructor should at least take one argument,
  	 * which is the number of worker threads.
  	 * Q: What are the other possible arguments which we may want to
- 	 * initialize in the construtor?
+ 	 * initialize in the constructor?
  	 */
-	public AbstractEventBarrier(int numWorkers) {
+	public AbstractEventBarrier(int numWorkers) 
+	{
 		_numWorkers = numWorkers;
+		signal = false; 
 	}
 
 	/* Method signatures 
