@@ -26,10 +26,13 @@ public class EventBarrier extends AbstractEventBarrier
 		}
 		else // Gatekeeper is calling
 		{
-			while(waiters() > 0)
+			try 
 			{
-				 // putting gatekeeper to "sleep"
-			}
+				this.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 			signal = false; 
 			return; 
 			
@@ -43,13 +46,17 @@ public class EventBarrier extends AbstractEventBarrier
 		numCompleted = 0; 
 		signal = true; 
 		this.notifyAll(); 
-		
 	}
 
 	@Override
 	public synchronized void complete() 
 	{
+		System.out.println("Num Completed = " + numCompleted); 
 		numCompleted++; 
+		if(numCompleted == _numWorkers)
+		{
+			this.notifyAll(); 
+		}
 		
 	}
 
