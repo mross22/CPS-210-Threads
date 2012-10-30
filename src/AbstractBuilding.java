@@ -16,16 +16,10 @@ public abstract class AbstractBuilding {
  	 */
 
 	/* Signal the elevator that we want to go up */
-	public abstract void CallUp(int fromFloor);
+	public abstract AbstractElevator callAndAwaitUp(int fromFloor);
 
 	/* Signal the elevator that we want to go down */
-	public abstract void CallDown(int fromFloor); 
+	public abstract AbstractElevator callAndAwaitDown(int fromFloor); 
 
-	/* Wait for elevator arrival and going up */
-	public abstract AbstractElevator AwaitUp(int fromFloor); 
-
-	/* Wait for elevator arrival and going down */
-	public abstract AbstractElevator AwaitDown(int fromFloor);
-
-	/* Other methods as needed goes here */
+	
 }

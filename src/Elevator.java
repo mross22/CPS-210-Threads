@@ -1,9 +1,21 @@
 
 public class Elevator extends AbstractElevator
 {
-	public Elevator(int numFloors, int elevatorId, int maxOccupancyThreshold) {
+	private EventBarrier[] ebUpList; 
+	private EventBarrier[] ebDownList;
+	private int numWorkers = 1000; 
+	private int numWaiters = 0; 
+	
+	public Elevator(int numFloors, int elevatorId, int maxOccupancyThreshold) 
+	{
 		super(numFloors, elevatorId, maxOccupancyThreshold);
-		// TODO Auto-generated constructor stub
+		ebUpList = new EventBarrier[numFloors]; 
+		ebDownList = new EventBarrier[numFloors]; 
+		for(int k = 0; k < numFloors; k++)
+		{
+			ebUpList[k] = new EventBarrier(numWorkers); 
+			ebDownList[k] = new EventBarrier(numWorkers); 
+		} 
 	}
 
 	@Override
@@ -19,8 +31,10 @@ public class Elevator extends AbstractElevator
 	}
 
 	@Override
-	public void VisitFloor(int floor) {
-		// TODO Auto-generated method stub
+	public void VisitFloor(int floor) 
+	{
+		
+		
 		
 	}
 
