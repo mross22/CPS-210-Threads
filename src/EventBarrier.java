@@ -64,6 +64,7 @@ public class EventBarrier extends AbstractEventBarrier
 		}*/
 		if(numWaiters == 0)
 		{
+			System.out.println("Num Waiters = 0"); 
 			this.notifyAll(); 
 		}
 		
