@@ -4,7 +4,7 @@ public class Elevator extends AbstractElevator
 	public EventBarrier[] ebUpList; 
 	public EventBarrier[] ebDownList;
 	
-	private int currentFloor; 
+	public int currentFloor; 
 	private int numWorkers = 1000; 
 	private int numWaiters = 0; 
 	private boolean up = true; 

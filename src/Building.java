@@ -3,7 +3,7 @@ public class Building extends AbstractBuilding
 { 
 	public static boolean[] upRequests; 
 	public static boolean[] downRequests; 
-	private static Elevator elevator; 
+	public static Elevator elevator; 
 	public Building(int numFloors, int numElevators) 
 	{
 		super(numFloors, numElevators);
