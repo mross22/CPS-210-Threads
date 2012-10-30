@@ -19,16 +19,16 @@ public class Building extends AbstractBuilding
 	}
 
 	@Override
-	public synchronized AbstractElevator callAndAwaitUp(int fromFloor) 
+	public AbstractElevator callAndAwaitUp(int fromFloor) 
 	{
-		System.out.println("--- Call And Await Up from " + fromFloor); 
+		//System.out.println("--- Call And Await Up from " + fromFloor); 
 		upRequests[fromFloor] = true; 
 		elevator.ebUpList[fromFloor].waitforevent(); 
 		return elevator; 
 	}
 
 	@Override
-	public synchronized AbstractElevator callAndAwaitDown(int fromFloor) 
+	public AbstractElevator callAndAwaitDown(int fromFloor) 
 	{
 		downRequests[fromFloor] = true; 
 		elevator.ebDownList[fromFloor].waitforevent(); 

@@ -52,11 +52,22 @@ public class Elevator extends AbstractElevator
 		OpenDoors(); 
 		if(up)
 		{
+			//System.out.println("SIGNALING"); 
 			ebUpList[floor].signal(); 
-			System.out.println("SIGNALED"); 
-
-			ebUpList[floor].waitforevent(); 
-			System.out.println("WAITING"); 
+			//System.out.println(ebUpList.toString()); 
+			/*for(boolean b : Building.upRequests)
+			{
+				if(b)
+				{
+					System.out.print("true "); 
+				}
+				else
+				{
+					System.out.print("false "); 
+				}
+			}*/
+			//ebUpList[floor].waitforevent(); 
+		//	System.out.println("WAITING"); 
 		}
 		else
 		{
@@ -124,7 +135,10 @@ public class Elevator extends AbstractElevator
  
 					if(Building.upRequests[k])
 					{
+						//System.out.println("Wooo"); 
 						VisitFloor(k); 
+						//System.out.println("Wooo2"); 
+
 					}
 				} 
 			}
