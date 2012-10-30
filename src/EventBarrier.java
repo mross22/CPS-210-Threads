@@ -53,9 +53,11 @@ public class EventBarrier extends AbstractEventBarrier
 	@Override
 	public synchronized void complete() 
 	{
-		System.out.println("Num Completed = " + numCompleted); 
+		//System.out.println("Num Completed = " + numCompleted); 
 		numCompleted++; 
+		System.out.println("Waiting = " + numWaiters); 
 		numWaiters--; 
+		
 		/*if(numCompleted == _numWorkers)
 		{
 			this.notifyAll(); 

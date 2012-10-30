@@ -4,7 +4,7 @@ public class Elevator extends AbstractElevator
 	public EventBarrier[] ebUpList; 
 	public EventBarrier[] ebDownList;
 	
-	public int currentFloor; 
+	public int currentFloor = 0; 
 	private int numWorkers = 1000; 
 	private int numWaiters = 0; 
 	private boolean up = true; 
@@ -31,9 +31,17 @@ public class Elevator extends AbstractElevator
 	}
 
 	@Override
-	public void ClosedDoors() {
+	public void ClosedDoors() 
+	{
 		System.out.println("Doors Closing"); 
-		
+		if(up)
+		{
+			Building.upRequests[currentFloor] = false; 
+		}
+		if(up)
+		{
+			Building.downRequests[currentFloor] = false; 
+		}
 	}
 
 	@Override
@@ -107,6 +115,7 @@ public class Elevator extends AbstractElevator
 			{
 				for(int k = 0; k < Building.upRequests.length; k++)
 				{
+				//	System.out.println("--- I am on Floor " + k); 
 					if(Building.upRequests[k])
 					{
 						VisitFloor(k); 

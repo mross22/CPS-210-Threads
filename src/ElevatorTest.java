@@ -12,10 +12,22 @@ class Rider implements Runnable {
 	}	
 	public void run() 
 	{
-		if(source > target)
+		if(source < target)
 		{
 			Elevator e = (Elevator) ElevatorTest.building.callAndAwaitUp(source); 
 			e.Enter(); 
+			//System.out.println("Got here");
+			System.out.println("R" + id + " entered on floor " + e.currentFloor + "; Source = " + source); 
+			e.RequestFloor(target); 
+			e.Exit(); 
+			System.out.println("R" + id + " exited on floor " + e.currentFloor + "; Target = " + target); 
+
+		}
+		else
+		{
+			Elevator e = (Elevator) ElevatorTest.building.callAndAwaitDown(source); 
+			e.Enter(); 
+			//System.out.println("Got here");
 			System.out.println("R" + id + " entered on floor " + e.currentFloor + "; Source = " + source); 
 			e.RequestFloor(target); 
 			e.Exit(); 
@@ -59,7 +71,7 @@ public class ElevatorTest
 		
 		r1.start(); 
 		r2.start(); 
-		System.out.println("Finished"); 
+
 	}
 	
 
