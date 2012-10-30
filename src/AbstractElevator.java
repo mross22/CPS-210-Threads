@@ -1,5 +1,6 @@
 
-public abstract class AbstractElevator {
+public abstract class AbstractElevator implements Runnable
+{
 
 	private int _numFloors; 
 	private int _elevatorId;
@@ -41,4 +42,6 @@ public abstract class AbstractElevator {
  	public abstract void RequestFloor(int floor);	
 	
 	/* Other methods as needed goes here */
+ 	
+ 	public abstract void run(); 
 }

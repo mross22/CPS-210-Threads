@@ -2,6 +2,7 @@
 public class EventBarrier extends AbstractEventBarrier
 {
 	private int numCompleted; 
+	public int numWaiters = 0; 
 	
 	public EventBarrier(int numWorkers) 
 	{
@@ -17,6 +18,7 @@ public class EventBarrier extends AbstractEventBarrier
 		{
 			try 
 			{
+				numWaiters++; 
 				this.wait();
 			} 
 			catch (InterruptedException e)
@@ -53,7 +55,12 @@ public class EventBarrier extends AbstractEventBarrier
 	{
 		System.out.println("Num Completed = " + numCompleted); 
 		numCompleted++; 
-		if(numCompleted == _numWorkers)
+		numWaiters--; 
+		/*if(numCompleted == _numWorkers)
+		{
+			this.notifyAll(); 
+		}*/
+		if(numWaiters == 0)
 		{
 			this.notifyAll(); 
 		}
