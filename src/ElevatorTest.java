@@ -67,11 +67,12 @@ public class ElevatorTest
 		 
 		Thread r1 = new Thread(new Rider("Aditya", 1, 4));
 		Thread r2 = new Thread(new Rider("Mike", 1, 3));
+		Thread r3 = new Thread(building.elevator);
 		
 		
 		r1.start(); 
 		r2.start(); 
-
+		r3.start(); 
 	}
 	
 

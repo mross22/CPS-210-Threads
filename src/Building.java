@@ -10,8 +10,6 @@ public class Building extends AbstractBuilding
 		upRequests = new boolean[numFloors]; 
 		downRequests = new boolean[numFloors]; 
 		elevator = new Elevator(numFloors, 1, 10000); 
-		Thread r1 = new Thread(elevator);
-		r1.start(); 
 		for(int k = 0; k < numFloors; k++)
 		{
 			upRequests[k] = false; 
@@ -21,7 +19,7 @@ public class Building extends AbstractBuilding
 	}
 
 	@Override
-	public AbstractElevator callAndAwaitUp(int fromFloor) 
+	public synchronized AbstractElevator callAndAwaitUp(int fromFloor) 
 	{
 		System.out.println("--- Call And Await Up from " + fromFloor); 
 		upRequests[fromFloor] = true; 
@@ -30,7 +28,7 @@ public class Building extends AbstractBuilding
 	}
 
 	@Override
-	public AbstractElevator callAndAwaitDown(int fromFloor) 
+	public synchronized AbstractElevator callAndAwaitDown(int fromFloor) 
 	{
 		downRequests[fromFloor] = true; 
 		elevator.ebDownList[fromFloor].waitforevent(); 

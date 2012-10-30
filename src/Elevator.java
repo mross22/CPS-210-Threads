@@ -47,6 +47,7 @@ public class Elevator extends AbstractElevator
 	@Override
 	public void VisitFloor(int floor) 
 	{
+		currentFloor = floor; 
 		System.out.println("Just visited floor " + floor); 
 		OpenDoors(); 
 		if(up)
@@ -120,7 +121,7 @@ public class Elevator extends AbstractElevator
 				for(int k = 0; k < Building.upRequests.length; k++)
 				{
 				//	System.out.println("--- I am on Floor " + k); 
-					currentFloor = k; 
+ 
 					if(Building.upRequests[k])
 					{
 						VisitFloor(k); 
@@ -131,7 +132,6 @@ public class Elevator extends AbstractElevator
 			{
 				for(int k = Building.downRequests.length - 1; k >= 0; k--)
 				{
-					currentFloor = k; 
 					if(Building.downRequests[k])
 					{
 						VisitFloor(k); 
