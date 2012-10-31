@@ -35,6 +35,7 @@ public class Elevator extends AbstractElevator
 	public void OpenDoors() 
 	{
 		System.out.println("Elevator " + myID + " doors opening on F" + currentFloor); 		
+
 	}
 
 	@Override

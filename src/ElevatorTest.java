@@ -90,12 +90,16 @@ public class ElevatorTest
 			e.printStackTrace();
 		}
 		
+
 		int F = 0;
 		int E = 0;
 		int R = 0;
 		int T = 0;
 		int M = 0;
+
+		//building = new Building(5, 3); 
 		
+	
         if(lines != null){
         	String[] firstLineParams = lines.get(0).split("\\s+");
         	F = Integer.parseInt(firstLineParams[0]);
@@ -118,6 +122,7 @@ public class ElevatorTest
 		//r1.start(); 
 		//r2.start(); 
 		//r4.start(); 
+
 
 	}
 	
