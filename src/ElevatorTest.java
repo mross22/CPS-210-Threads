@@ -23,23 +23,24 @@ class Rider implements Runnable {
 		if(source < target)
 		{
 			Elevator e = (Elevator) ElevatorTest.building.callAndAwaitUp(source); 
-			System.out.println("R" + id + " entered on floor " + e.currentFloor + "; Source = " + source); 
+			System.out.println("R" + id + " entered E" + e.myID + " on floor " + e.currentFloor + "; Source = " + source); 
 			e.Enter(); 
 			//System.out.println("Got here");
 			e.RequestFloor(target); 
-			System.out.println("R" + id + " exited on floor " + e.currentFloor + "; Target = " + target); 
+			System.out.println("R" + id + " exited E" + e.myID + " on floor " + e.currentFloor + "; Target = " + target); 
 			e.Exit(); 
 
 		}
 		else
 		{
 			Elevator e = (Elevator) ElevatorTest.building.callAndAwaitDown(source); 
+			System.out.println("R" + id + " entered " + e.myID + " on floor " + e.currentFloor + "; Source = " + source); 
 			e.Enter(); 
 			//System.out.println("Got here");
 			System.out.println("R" + id + " entered on floor " + e.currentFloor + "; Source = " + source); 
 			e.RequestFloor(target); 
+			System.out.println("R" + id + " exited " + e.myID + " on floor " + e.currentFloor + "; Target = " + target); 
 			e.Exit(); 
-			System.out.println("R" + id + " exited on floor " + e.currentFloor + "; Target = " + target); 
 
 		}
 		
@@ -68,7 +69,6 @@ public class ElevatorTest
 	public static Building building; 
 	public static void main(String[] args)
 	{
-		
 		// Read input from file
 		FileReader fileReader;
 		List<String> lines = null;
@@ -104,29 +104,21 @@ public class ElevatorTest
         	T = Integer.parseInt(firstLineParams[3]);
         	M = Integer.parseInt(firstLineParams[4]);
         }
-		
+
 		building = new Building(F, E); 
 		
 		for(int i=1; i< lines.size();i++){
 			String[] riderParams = lines.get(i).split("\\s+");
 			riderThreads.add(new Thread(new Rider(riderParams[0],Integer.parseInt(riderParams[1]),Integer.parseInt(riderParams[2]))));
 		}
-		 
-		//Thread r1 = new Thread(new Rider("Aditya", 1, 4));
-		//System.out.println("ADITYA THREAD CREATED"); 
-		//Thread r2 = new Thread(new Rider("Mike", 1, 3));
-		//System.out.println("MIKE THREAD CREATED"); 
-		//Thread r4 = new Thread(new Rider("Bobby", 2, 3));
-		//System.out.println("Bobby THREAD CREATED"); 
-		Thread elevatorThread = new Thread(building.elevator);
-		
+
 		for(Thread rider : riderThreads){
 			rider.start();
 		}
 		//r1.start(); 
 		//r2.start(); 
 		//r4.start(); 
-		elevatorThread.start(); 
+
 	}
 	
 

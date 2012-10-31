@@ -3,45 +3,52 @@ public class Elevator extends AbstractElevator
 {
 	public EventBarrier[] ebUpList; 
 	public EventBarrier[] ebDownList;
+	public boolean[] upRequests; 
+	public boolean[] downRequests; 
 	
 	public int elevatorId;
 	public int currentFloor = 0; 
 	private int numWorkers = 1000; 
 	private int numWaiters = 0; 
-	private boolean up = true; 
+	public int myID; 
+	public boolean up = true; 
 	
 	
 	public Elevator(int numFloors, int elevatorId, int maxOccupancyThreshold) 
 	{
 		super(numFloors, elevatorId, maxOccupancyThreshold);
+		myID = elevatorId; 
 		ebUpList = new EventBarrier[numFloors]; 
 		ebDownList = new EventBarrier[numFloors]; 
-		
+		upRequests = new boolean[numFloors]; 
+		downRequests = new boolean[numFloors];
 		for(int k = 0; k < numFloors; k++)
 		{
 			ebUpList[k] = new EventBarrier(numWorkers); 
 			ebDownList[k] = new EventBarrier(numWorkers); 
+			upRequests[k] = false; 
+			downRequests[k] = false;
 		} 
 	}
 
 	@Override
 	public void OpenDoors() 
 	{
-		System.out.println("E" + elevatorId + " on F" + currentFloor + " opens"); 
-		
+		System.out.println("Elevator " + myID + " doors opening on F" + currentFloor); 		
 	}
 
 	@Override
 	public void ClosedDoors() 
 	{
-		System.out.println("E" + elevatorId + " on F" + currentFloor + " closes"); 
+		System.out.println("Elevator " + myID + " doors closing on F" + currentFloor); 
+
 		if(up)
 		{
-			Building.upRequests[currentFloor] = false; 
+			this.upRequests[currentFloor] = false; 
 		}
 		if(up)
 		{
-			Building.downRequests[currentFloor] = false; 
+			this.downRequests[currentFloor] = false; 
 		}
 	}
 
@@ -49,11 +56,15 @@ public class Elevator extends AbstractElevator
 	public void VisitFloor(int floor) 
 	{
 		currentFloor = floor; 
+
 		//System.out.println("Just visited floor " + floor); 
-		System.out.println("E" + elevatorId + " moves " + ((up) ? "up" : "down") + " to F" + floor);
+		System.out.println("E" + myID + " moves " + ((up) ? "up" : "down") + " to F" + floor);
+
 		OpenDoors(); 
 		if(up)
 		{
+			System.out.println("This is up");  
+
 			//System.out.println("SIGNALING"); 
 			ebUpList[floor].signal(); 
 			//System.out.println(ebUpList.toString()); 
@@ -73,9 +84,9 @@ public class Elevator extends AbstractElevator
 		}
 		else
 		{
+			System.out.println("This is down");  
+
 			ebDownList[floor].signal(); 
-			
-			ebDownList[floor].waitforevent(); 
 		}
 		ClosedDoors();  
 		
@@ -114,12 +125,12 @@ public class Elevator extends AbstractElevator
 	{
 		if(up)
 		{
-			Building.upRequests[floor] = true; 
+			this.upRequests[floor] = true; 
 			ebUpList[floor].waitforevent(); 
 		}
 		else
 		{
-			Building.downRequests[floor] = true;
+			this.downRequests[floor] = true;
 			ebDownList[floor].waitforevent();
 		}
 	}
@@ -131,11 +142,11 @@ public class Elevator extends AbstractElevator
 		{
 			if(up)
 			{
-				for(int k = 0; k < Building.upRequests.length; k++)
+				for(int k = 0; k < this.upRequests.length; k++)
 				{
 				//	System.out.println("--- I am on Floor " + k); 
  
-					if(Building.upRequests[k])
+					if(this.upRequests[k])
 					{
 						//System.out.println("Wooo"); 
 						VisitFloor(k); 
@@ -146,9 +157,9 @@ public class Elevator extends AbstractElevator
 			}
 			else
 			{
-				for(int k = Building.downRequests.length - 1; k >= 0; k--)
+				for(int k = this.downRequests.length - 1; k >= 0; k--)
 				{
-					if(Building.downRequests[k])
+					if(this.downRequests[k])
 					{
 						VisitFloor(k); 
 					}
